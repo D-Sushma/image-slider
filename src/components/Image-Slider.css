@@ -1,0 +1,27 @@
+.each-slide {
+    min-height: 80vh;
+    background-color: purple;
+    margin: 2px;
+}
+
+.slide-image {
+    width: 100vw;
+    height: 80vh;
+    /* ------------------- 1. TO SLIDE IMAGE---------------------------------- */
+    /* background-size: contain; */
+    /* background-size: cover; */
+
+    /* ------------------- 2. TO FAD IMAGE-----/  3. ----------------------------- */
+    /* object-fit: cover; */
+    position: relative;
+}
+
+/* ----------------- 2. TO FAD IMAGE-----/ ~~~~~~~ 3. TO ZOOM EFFECT~~~~~~~~~~~~~ */
+.each-slide h2 {
+    padding: 20px;
+    font-size: 20px;
+    background: #efefef;
+    /* text-align: center; */
+    position: absolute;
+    top: 0;
+}
