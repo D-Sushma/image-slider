@@ -1,28 +1,22 @@
-import React from 'react'
-import './Image-Slider.css';
-import slide1 from '../images/slide-1.jpg'
+import React, { useState, useEffect } from 'react'
+import './Image_Slider.css';
+// import slide1 from '../images/slide-1.jpg'
 import slide2 from '../images/slide-2.jpg'
 import slide3 from '../images/slide-3.jpg'
 import 'react-slideshow-image/dist/styles.css'
-// import AnimatedText from 'react-animated-text-content';
-// import TextTransition, { presets } from "react-text-transition";
-import MovingComponent from 'react-moving-text'
+// import MovingComponent from 'react-moving-text'
+// import MovingText from 'react-moving-text'
 
+import Caption1 from './Caption1';
+import Caption2 from './Caption2';
+import Caption3 from './Caption3';
 
 //  ===================== 1.ONLY TO SLIDE IMAGE===================================== 
-import { Slide } from 'react-slideshow-image';
+// import { Slide } from 'react-slideshow-image';
 // ------------------- 2. TO FAD IMAGE----------------------------------
-import { Fade } from 'react-slideshow-image';
+// import { Fade } from 'react-slideshow-image';
 // ~~~~~~~~~~~~~~~~~~~~~ 3. TO ZOOM EFFECT~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import { Zoom } from 'react-slideshow-image';
-
-
-// const TEXTS = [
-//     "Forest",
-//     "Building",
-//     "Tree",
-//     "Color"
-// ];
 
 // ===================== 1.ONLY TO SLIDE IMAGE=====================================
 // const slideImages = [
@@ -32,7 +26,7 @@ import { Zoom } from 'react-slideshow-image';
 // const zoomImages1 = [
 //     '../images/bag.png',
 //     '../images/colorfull.png',
-//     '../images/choko.jpg',
+//     '../images/chocko.jpg',
 //     'images/slide_5.jpg',
 //     'images/slide_6.jpg',
 //     'images/slide_7.jpg'
@@ -40,8 +34,7 @@ import { Zoom } from 'react-slideshow-image';
 const zoomImages = [
     {
         // url: 'https://www.hdwallpaperspulse.com/wp-content/uploads/2014/05/27/523.jpeg',
-        // require:'../../public/images/',
-        url: slide1,
+        url: './images/slide-1.jpg',
         caption1: 'Slide 1',
         caption2: 'Next-gen technology',
         caption3: 'Data re-imagined'
@@ -61,16 +54,39 @@ const zoomImages = [
     },
 ];
 
-export default function Image_Slider() {
-    // const [index, setIndex] = React.useState(0);
+// ............ 1.chain animation...............................
+// const AnimationsForChaining = ["swing", "flipSlowDown", "fadeOutToBottom", "jelly"]
 
-    // React.useEffect(() => {
-    //     const intervalId = setInterval(() =>
-    //         setIndex(index => index + 1), 3000
-    //         // every 3 seconds
-    //     );
-    //     return () => clearTimeout(intervalId);
-    // }, []);
+export default function Image_Slider() {
+    // ```````````````````````````````````````````````````````
+    const [timer, setTimer] = useState(0)
+    setTimeout(() => {
+        if (timer === 0) {
+            setTimer(timer + 1)
+        }
+        console.log('Hello, World!')
+    }, 3000);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            console.log('This will run after 1 second!')
+        }, 1000);
+        return () => clearTimeout(timer);
+    }, []);
+
+    // ................. 2.chain animation.............................
+    // const [animationIndex, setAnimationIndex] = useState(0)
+    // const [animationType, setAnimationType] = useState(AnimationsForChaining[0])
+    // const handleChainAnimation = () => {
+    //     setAnimationIndex(animationIndex + 1)
+    //     setAnimationType(animationType[animationIndex + 1])
+    // }
+
+    //    useEffect(() => {
+    // handleChainAnimation()  
+    //  }, [animationIndex])
+
+
+
     return (
         <div className="slide-container">
             <h1><b>Image_Slider</b></h1>
@@ -103,57 +119,35 @@ export default function Image_Slider() {
                     zoomImages.map((zoomImage, index) => (
                         <div className="each-slide" key={index}>
                             <img style={{ width: "100%" }} src={zoomImage.url} alt='' className='slide-image' />
+                           
                             <div className='caption'>
-                                <MovingComponent
-                                    type="blur"
+                                {/* <MovingComponent
+                                    type="pulse"
                                     duration="1000ms"
                                     delay="0s"
                                     direction="normal"
                                     timing="ease"
-                                    iteration="5"
+                                    iteration="3"
                                     fillMode="none">
-                                    React-Moving-Text
                                     <h1 className='caption1'>{zoomImage.caption1}</h1>
                                     <h1 className='caption2'>{zoomImage.caption2}</h1>
                                     <h1 className='caption3'>{zoomImage.caption3}</h1>
-                                </MovingComponent>               
-                                
-
+                                </MovingComponent> */} {/* .............................. 3.chain animation.................................. */}
                                 {/* <MovingText
-                                    type="animation_type"
+                                    onAnimationEnd={handleChainAnimation}
+                                    type={animationType}
                                     duration="1000ms"
-                                    delay="0s"
-                                    direction="normal"
-                                    timing="ease"
-                                    iteration="infinite"
-                                    fillMode="none">
-                                    <p>Content...</p>
+                                    timing="linear"
+                                    iteration={1}>
+
+                                    <h1 className='caption1'>{zoomImage.caption1}</h1>
+                                    <h1 className='caption2'>{zoomImage.caption2}</h1>
+                                    <h1 className='caption3'>{zoomImage.caption3}</h1>
                                 </MovingText> */}
+                                <Caption1 />
 
-                                {/* <TextTransition springConfig={presets.wobbly}>
-                                    {TEXTS[index % TEXTS.length]}
-                                </TextTransition> */}
-
-                                {/* <AnimatedText
-                                    type="words" // animate words or chars
-                                    animation={{
-                                        x: '200px',
-                                        y: '-20px',
-                                        scale: 1.1,
-                                        ease: 'ease-in-out',
-                                    }}
-                                    animationType="float"
-                                    interval={0.06}
-                                    duration={0.8}
-                                    tag="p"
-                                    className="animated-paragraph"
-                                    includeWhiteSpaces
-                                    threshold={0.1}
-                                    rootMargin="20%"
-                                >
-                                    Content to animate
-                                </AnimatedText>;  */}
                             </div>
+
                         </div>
                     ))
                 }
